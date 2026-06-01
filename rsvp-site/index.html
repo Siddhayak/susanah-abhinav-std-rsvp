@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Susanah & Abhinav — Save the Date & RSVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f4f0eb;
+      --cream-light: #f9f6f2;
+      --navy: #2c3e5a;
+      --navy-light: #3d5070;
+      --navy-muted: #4a5e78;
+      --ocean-mid: #7a9bb5;
+      --text-dark: #2c3e5a;
+      --text-mid: #5a6e82;
+      --text-light: #8a9aaa;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background-color: var(--cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── WATERCOLOR BACKGROUND ── */
+    .watercolor-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .watercolor-bg svg { width: 100%; height: 100%; }
+
+    /* ── OCEAN SCENE ── */
+    .ocean-scene {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      pointer-events: none;
+      height: 38vh;
+      min-height: 180px;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      width: 100%;
+      max-width: 600px;
+      padding: 56px 24px 0;
+      text-align: center;
+      animation: fadeUp 1.1s ease forwards;
+    }
+
+    .counsel-line {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 500;
+      font-size: clamp(0.62rem, 1.8vw, 0.72rem);
+      letter-spacing: 0.18em;
+      color: var(--navy-muted);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      line-height: 1.9;
+    }
+
+    /* SAVE THE DATE — tighter kerning to match card */
+    .save-block { margin-bottom: 6px; }
+
+    .save-text {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 9vw, 3.8rem);
+      letter-spacing: 0.12em;   /* tighter — matches card */
+      color: var(--navy);
+      line-height: 1.05;
+      display: block;
+    }
+
+    .the-text {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 600;
+      font-size: clamp(1.7rem, 6.5vw, 2.6rem);
+      color: var(--navy-light);
+      display: block;
+      line-height: 1.05;
+      margin: 2px 0;
+    }
+
+    .date-text {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 9vw, 3.8rem);
+      letter-spacing: 0.12em;   /* tighter — matches card */
+      color: var(--navy);
+      line-height: 1.05;
+      display: block;
+    }
+
+    /* COUPLE NAME */
+    .couple-name {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      font-size: clamp(2rem, 7.5vw, 3rem);
+      color: var(--navy);
+      margin: 28px 0 10px;
+      display: block;
+    }
+
+    .name-divider {
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--navy-muted), transparent);
+      margin: 0 auto 28px;
+    }
+
+    /* EVENT DETAILS */
+    .event-details {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 500;
+      font-size: clamp(0.76rem, 2.4vw, 0.9rem);
+      letter-spacing: 0.14em;
+      color: var(--navy-muted);
+      line-height: 2.2;
+      margin-bottom: 8px;
+    }
+
+    .details-divider {
+      width: 160px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--ocean-mid), transparent);
+      margin: 16px auto 32px;
+      opacity: 0.5;
+    }
+
+    /* ── RSVP CARD ── */
+    .rsvp-card {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto 100px;
+      padding: 0 16px;
+      animation: fadeUp 1.3s ease 0.2s both;
+    }
+
+    .rsvp-heading {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 500;
+      font-size: clamp(0.68rem, 2vw, 0.75rem);
+      letter-spacing: 0.24em;
+      color: var(--text-mid);
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .form-inner {
+      background: rgba(255,255,255,0.58);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.72);
+      border-radius: 4px;
+      padding: 32px 28px 36px;
+      box-shadow:
+        0 2px 40px rgba(44,62,90,0.07),
+        0 1px 4px rgba(44,62,90,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.85);
+    }
+
+    /* ── FORM FIELDS ── */
+    .field-group { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-family: 'Cormorant SC', serif;
+      font-weight: 500;
+      font-size: clamp(0.65rem, 1.8vw, 0.72rem);
+      letter-spacing: 0.18em;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--text-dark);
+      background: rgba(244,240,235,0.65);
+      border: 1px solid rgba(44,62,90,0.15);
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+      -webkit-appearance: none;
+      appearance: none;
+      /* Prevent zoom on focus on iOS */
+      font-size: max(16px, 1rem);
+    }
+
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder { color: var(--text-light); font-weight: 300; }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus {
+      border-color: var(--ocean-mid);
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 0 0 3px rgba(122,155,181,0.13);
+    }
+
+    .select-wrapper { position: relative; }
+    .select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--navy-muted);
+      pointer-events: none;
+      opacity: 0.55;
+    }
+    select option { background: #f4f0eb; color: var(--text-dark); }
+
+    .dietary-row { margin-bottom: 24px; }
+
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: max(16px, 0.95rem);
+      color: var(--text-dark);
+      background: rgba(244,240,235,0.65);
+      border: 1px solid rgba(44,62,90,0.15);
+      border-radius: 2px;
+      outline: none;
+      resize: vertical;
+      min-height: 76px;
+      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+    }
+    textarea::placeholder { color: var(--text-light); font-weight: 300; }
+    textarea:focus {
+      border-color: var(--ocean-mid);
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 0 0 3px rgba(122,155,181,0.13);
+    }
+
+    /* ── SUBMIT BUTTON ── */
+    .rsvp-btn {
+      width: 100%;
+      padding: 16px 24px;
+      font-family: 'Cormorant SC', serif;
+      font-weight: 600;
+      font-size: clamp(0.78rem, 2.2vw, 0.88rem);
+      letter-spacing: 0.26em;
+      color: #f9f6f2;
+      background: var(--navy);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .rsvp-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent);
+    }
+    .rsvp-btn:hover  { background: var(--navy-light); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(44,62,90,0.22); }
+    .rsvp-btn:active { transform: translateY(0); }
+    .rsvp-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .btn-text    { transition: opacity 0.2s; }
+    .btn-loading { display: none; }
+    .rsvp-btn.loading .btn-text    { display: none; }
+    .rsvp-btn.loading .btn-loading { display: inline; }
+
+    /* ── ERROR MESSAGE ── */
+    .error-msg {
+      display: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      color: #b05252;
+      text-align: center;
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .success-panel {
+      display: none;
+      text-align: center;
+      padding: 16px 0 8px;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    /* animated circle + check */
+    .success-circle {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      position: relative;
+    }
+    .success-circle svg {
+      width: 72px;
+      height: 72px;
+      overflow: visible;
+    }
+
+    /* ring draws in */
+    .circle-ring {
+      fill: none;
+      stroke: var(--ocean-mid);
+      stroke-width: 1.5;
+      stroke-dasharray: 226;
+      stroke-dashoffset: 226;
+      animation: drawRing 0.7s ease 0.1s forwards;
+      transform-origin: center;
+    }
+    /* check draws in after ring */
+    .check-mark {
+      fill: none;
+      stroke: var(--navy);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 36;
+      stroke-dashoffset: 36;
+      animation: drawCheck 0.45s ease 0.7s forwards;
+    }
+
+    @keyframes drawRing {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* confirmed badge label */
+    .confirmed-badge {
+      display: inline-block;
+      font-family: 'Cormorant SC', serif;
+      font-weight: 600;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ocean-mid);
+      border: 1px solid var(--ocean-mid);
+      border-radius: 2px;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 1.1s forwards;
+    }
+
+    .success-title {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      font-size: clamp(1.7rem, 5vw, 2.1rem);
+      color: var(--navy);
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 1.2s forwards;
+    }
+
+    .success-sub {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 1.35s forwards;
+    }
+
+    /* ── FOOTER MONOGRAM ── */
+    .footer-monogram {
+      padding-bottom: 36px;
+      text-align: center;
+      animation: fadeUp 1.5s ease 0.4s both;
+    }
+    .footer-monogram svg {
+      width: 62px;
+      height: auto;
+      opacity: 0.55;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MOBILE-FIRST RESPONSIVE ── */
+    @media (max-width: 400px) {
+      .hero { padding: 44px 18px 0; }
+      .form-inner { padding: 26px 18px 30px; }
+      .rsvp-card { padding: 0 12px; margin-bottom: 110px; }
+    }
+
+    @media (min-width: 600px) {
+      .hero { padding: 64px 32px 0; }
+      .form-inner { padding: 36px 32px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- WATERCOLOR SKY BG -->
+<div class="watercolor-bg">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1440" height="900" fill="#f4f0eb"/>
+    <ellipse cx="300"  cy="120" rx="520" ry="160" fill="rgba(168,196,212,0.13)" transform="rotate(-8 300 120)"/>
+    <ellipse cx="1100" cy="80"  rx="480" ry="130" fill="rgba(168,196,212,0.10)" transform="rotate(5 1100 80)"/>
+    <ellipse cx="700"  cy="220" rx="600" ry="100" fill="rgba(200,219,229,0.08)"/>
+    <ellipse cx="200"  cy="300" rx="380" ry="80"  fill="rgba(168,196,212,0.07)" transform="rotate(-3 200 300)"/>
+    <path d="M 50 90  Q 250 60  480 95  Q 300 115 50 100 Z"  fill="rgba(190,210,220,0.18)"/>
+    <path d="M 900 50 Q 1100 30 1380 60 Q 1200 80 900 65 Z"  fill="rgba(190,210,220,0.15)"/>
+    <path d="M 400 180 Q 600 160 820 185 Q 650 200 400 190 Z" fill="rgba(168,196,212,0.12)"/>
+  </svg>
+</div>
+
+<!-- OCEAN SCENE -->
+<div class="ocean-scene">
+  <svg viewBox="0 0 1440 340" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <rect y="0" width="1440" height="30" fill="rgba(168,196,212,0.15)"/>
+    <path d="M0,20 C200,10 400,30 600,18 C800,6 1000,28 1200,16 C1300,10 1380,22 1440,15 L1440,340 L0,340 Z" fill="rgba(100,140,170,0.55)"/>
+    <path d="M0,55 C180,42 360,66 540,52 C720,38 900,62 1080,50 C1200,42 1340,58 1440,48 L1440,340 L0,340 Z" fill="rgba(122,155,181,0.45)"/>
+    <path d="M0,70 C120,60 280,78 440,68 C560,60 680,76 820,66 C940,58 1080,74 1220,64 C1310,58 1390,70 1440,65" fill="none" stroke="rgba(200,220,232,0.5)" stroke-width="1.5"/>
+    <path d="M0,110 C100,98 220,118 360,106 C480,96 580,112 700,102 C800,94 900,108 1020,100 C1120,94 1260,108 1440,100 L1440,340 L0,340 Z" fill="rgba(168,196,212,0.38)"/>
+    <path d="M0,180 C150,165 300,185 500,172 C700,159 900,178 1100,168 C1250,161 1360,175 1440,170 L1440,340 L0,340 Z" fill="rgba(200,185,165,0.45)"/>
+    <path d="M0,230 C200,220 400,238 650,225 C900,212 1150,234 1440,220 L1440,340 L0,340 Z" fill="rgba(215,200,180,0.55)"/>
+    <rect y="290" width="1440" height="50" fill="rgba(220,208,190,0.6)"/>
+    <path d="M100,135 Q200,130 320,137" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" fill="none"/>
+    <path d="M500,148 Q620,143 760,150" stroke="rgba(255,255,255,0.35)" stroke-width="0.8" fill="none"/>
+  </svg>
+</div>
+
+<!-- PAGE -->
+<div class="page-wrapper">
+
+  <header class="hero">
+    <p class="counsel-line">
+      Counsel are pleased to inform<br>
+      that the merger has been approved!
+    </p>
+
+    <div class="save-block">
+      <span class="save-text">SAVE</span>
+      <span class="the-text">the</span>
+      <span class="date-text">DATE</span>
+    </div>
+
+    <span class="couple-name">Susanah &amp; Abhinav</span>
+    <div class="name-divider"></div>
+
+    <div class="event-details">
+      3 October 2026 &nbsp;·&nbsp; Evening<br>
+      Saturday &nbsp;·&nbsp; Singapore
+    </div>
+
+    <div class="details-divider"></div>
+  </header>
+
+  <!-- RSVP SECTION -->
+  <section class="rsvp-card">
+    <p class="rsvp-heading">Kindly RSVP Below</p>
+
+    <div class="form-inner">
+
+      <!-- FORM -->
+      <div id="form-area">
+        <div class="field-group">
+          <label for="guest-name">Full Name</label>
+          <input type="text" id="guest-name" name="name" placeholder="Your name" autocomplete="name" required />
+        </div>
+
+        <div class="field-group">
+          <label for="guest-email">Email Address</label>
+          <input type="email" id="guest-email" name="email" placeholder="your@email.com" autocomplete="email" required />
+        </div>
+
+        <div class="field-group">
+          <label for="guest-count">Number of Guests</label>
+          <div class="select-wrapper">
+            <select id="guest-count" name="guests" required>
+              <option value="" disabled selected>Select guests attending</option>
+              <option value="1">1 Guest</option>
+              <option value="2">2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+              <option value="6">6 Guests</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="dietary-row">
+          <label for="dietary">Dietary Notes <span style="opacity:0.5;font-size:0.82em;letter-spacing:0.06em;">(optional)</span></label>
+          <textarea id="dietary" name="dietary" placeholder="Any dietary requirements or special notes…"></textarea>
+        </div>
+
+        <button class="rsvp-btn" id="rsvp-btn" type="button" onclick="submitRSVP()">
+          <span class="btn-text">Confirm Attendance</span>
+          <span class="btn-loading">Sending…</span>
+        </button>
+
+        <p class="error-msg" id="error-msg">
+          Something went wrong. Please try again or contact us directly.
+        </p>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-panel" id="success-panel">
+
+        <div class="success-circle">
+          <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+            <!-- animated ring -->
+            <circle class="circle-ring" cx="36" cy="36" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
+            <!-- animated check -->
+            <polyline class="check-mark" points="20,37 31,48 53,25"/>
+          </svg>
+        </div>
+
+        <div class="confirmed-badge">Attendance Confirmed</div>
+
+        <p class="success-title">You're on the list!</p>
+        <p class="success-sub">
+          We're so excited to celebrate with you.<br>
+          See you on 3 October 2026, Singapore.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REAL A&S LOGO FOOTER -->
+  <div class="footer-monogram">
+    <svg width="104" height="119" viewBox="0 0 104 119" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M63.4242 66.499H39.1342C33.5609 68.6139 30.0158 71.5654 27.7387 74.8936C25.3919 78.3237 24.2739 82.3258 23.85 86.6025C22.3205 102.033 36.0881 114.179 51.7572 114.179C60.7184 114.179 68.5016 109.934 73.5599 103.305C74.4138 104.729 75.3147 106.086 76.267 107.372C70.3937 114.362 61.7479 118.831 51.7572 118.831C34.0361 118.831 17.3398 104.968 19.2054 86.1455C19.6783 81.3747 20.9593 76.5459 23.8832 72.2725C26.8254 67.9722 31.315 64.4059 37.9056 61.9902L38.7103 61.8467H63.4242V66.499ZM77.5883 96.1143C78.4882 97.9031 79.4348 99.5715 80.4349 101.114C79.6488 102.636 78.7521 104.088 77.7582 105.461C76.7969 104.121 75.8898 102.696 75.0277 101.194C76.032 99.6041 76.8911 97.904 77.5883 96.1143ZM47.8568 42.4434C49.5377 43.3426 51.3823 44.3322 53.264 45.3857C59.1152 48.6616 65.802 52.8379 71.0394 58.2188C76.0523 63.3688 79.5582 67.5006 81.7006 71.8418C83.8891 76.2766 84.5768 80.7611 84.3178 86.4795C84.1242 90.751 83.1807 94.8411 81.6107 98.5908C80.5682 96.858 79.5787 94.9622 78.6361 92.9043C79.2017 90.7804 79.5519 88.5594 79.6556 86.2695C79.8902 81.0914 79.2606 77.4378 77.5121 73.8945C75.7173 70.2578 72.6655 66.5699 67.6898 61.458C62.9384 56.5766 56.7373 52.6654 50.9789 49.4414C49.5406 48.6361 48.1597 47.889 46.8422 47.1826C47.1768 45.6138 47.5154 44.0339 47.8568 42.4434ZM41.4691 38.8516C42.4541 39.4858 43.727 40.2137 45.2728 41.0557C45.4179 41.1347 45.5666 41.213 45.7162 41.2939C45.3741 42.8851 45.035 44.4647 44.7006 46.0322C44.1321 45.7275 43.5758 45.432 43.0355 45.1377C42.1244 44.6414 41.2477 44.1526 40.433 43.6748C40.7734 42.0811 41.1191 40.473 41.4691 38.8516ZM61.2572 37.0293C61.6202 38.6831 61.9781 40.3237 62.3304 41.9502L61.6791 42.4014L59.017 38.5811L61.2572 37.0293ZM51.7572 0C64.5819 5.00961e-05 74.9857 10.3446 74.9857 23.1143L74.9711 23.374C74.6443 26.271 74.1836 28.9034 72.7855 31.5723C71.393 34.2306 69.1747 36.7349 65.6556 39.6396L65.4984 39.7588L64.4066 40.5137C64.0487 38.8645 63.6847 37.2 63.3148 35.5215C66.1727 33.0841 67.7206 31.189 68.6478 29.4189C69.6203 27.5626 70.0105 25.6614 70.3178 22.9863C70.2486 12.8528 61.9697 4.65142 51.7572 4.65137C41.5271 4.65137 33.3221 12.8925 33.1947 23.1426C33.1198 29.1762 35.5025 33.8574 39.4174 37.3027C39.049 39.0029 38.6862 40.688 38.3295 42.3564C37.9369 42.0882 37.5741 41.8246 37.2484 41.5635C31.8524 37.2373 28.4301 31.0301 28.5287 23.085C28.6869 10.3536 38.9072 5.21627e-06 51.7572 0Z" fill="#344F6D"/>
+      <path d="M25.2236 97.0352C25.8854 98.7829 26.7545 100.438 27.8008 101.979C26.283 104.526 24.6222 106.839 22.7812 108.878C17.0572 115.217 9.6883 118.829 0 118.829V114.178C8.33145 114.178 14.4506 111.15 19.3125 105.766C21.5052 103.337 23.4549 100.413 25.2236 97.0352ZM62.0908 59.5205C64.5903 61.4289 65.9149 62.5935 67.2734 64.2588C68.7899 70.6934 70.3544 76.7057 72.0996 82.1885C75.3029 92.2521 79.0382 100.278 83.9775 105.77C88.8237 111.158 94.8874 114.178 103.098 114.178V118.829C93.5115 118.829 86.1998 115.209 80.502 108.874C74.8974 102.643 70.9195 93.8621 67.6514 83.5947C65.2812 76.1485 63.2455 67.7857 61.2461 58.8486C61.5304 59.0704 61.8121 59.2943 62.0908 59.5205ZM39.6504 68.8232C38.3875 74.0411 37.0666 78.9906 35.6152 83.5898C33.7466 89.5116 31.6353 94.9387 29.1045 99.6689C28.042 97.902 27.2304 95.9953 26.7168 93.9844C28.3354 90.456 29.801 86.513 31.1641 82.1934C32.2072 78.8876 33.1813 75.3889 34.1201 71.7217C35.6176 70.6549 37.4126 69.6756 39.5742 68.8232H39.6504ZM53.7969 6.35352C57.7518 20.5326 60.7303 34.4981 63.5166 47.3955C63.6506 48.0155 63.7849 48.6332 63.918 49.248C62.0665 47.952 60.1945 46.7569 58.3652 45.6543C56.3106 36.1419 54.1437 26.1772 51.5508 16.0332C48.7184 27.1464 46.4106 38.0445 44.208 48.3691C42.8687 54.6471 41.5647 60.7246 40.2051 66.4971H39.1367C37.5855 67.0857 36.1918 67.7398 34.9385 68.4482C36.5414 61.8849 38.0582 54.8283 39.6426 47.4014C42.3943 34.5027 45.3451 20.5355 49.3008 6.35352H53.7969Z" fill="#344F6D"/>
+    </svg>
+  </div>
+
+</div><!-- /page-wrapper -->
+
+<script>
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxThwPoag8kkim7BsFgj8UlF-lPmIay3SaH93yLssuaQxDaunwo-R5Z4hXqwm7q2p8t/exec';
+
+  async function submitRSVP() {
+    const nameEl    = document.getElementById('guest-name');
+    const emailEl   = document.getElementById('guest-email');
+    const guestsEl  = document.getElementById('guest-count');
+    const dietaryEl = document.getElementById('dietary');
+    const btn       = document.getElementById('rsvp-btn');
+    const errMsg    = document.getElementById('error-msg');
+
+    const name    = nameEl.value.trim();
+    const email   = emailEl.value.trim();
+    const guests  = guestsEl.value;
+    const dietary = dietaryEl.value.trim();
+
+    // Validation
+    let valid = true;
+    [nameEl, emailEl, guestsEl].forEach(el => {
+      if (!el.value.trim()) {
+        el.style.borderColor = 'rgba(176,82,82,0.55)';
+        el.addEventListener('input', () => el.style.borderColor = '', { once: true });
+        valid = false;
+      }
+    });
+    if (!valid) return;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailEl.style.borderColor = 'rgba(176,82,82,0.55)';
+      emailEl.addEventListener('input', () => emailEl.style.borderColor = '', { once: true });
+      return;
+    }
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+    errMsg.style.display = 'none';
+
+    const payload = {
+      name, email, guests, dietary,
+      timestamp: new Date().toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })
+    };
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      // Swap to success panel
+      document.getElementById('form-area').style.display = 'none';
+      const panel = document.getElementById('success-panel');
+      panel.style.display = 'block';
+
+    } catch (err) {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      errMsg.style.display = 'block';
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !document.getElementById('rsvp-btn').disabled) submitRSVP();
+  });
+</script>
+
+</body>
+</html>
